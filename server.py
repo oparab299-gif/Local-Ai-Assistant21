@@ -27,9 +27,7 @@ else:
     chat_history = [
         {
             "role": "system",
-            "content": """You are the Company Expense AI Assistant.
-When a user uploads a document, carefully read the text provided to answer their questions.
-Be precise, professional, and do not hallucinate numbers or facts."""
+            "content": "You are a helpful, highly intelligent AI assistant. You answer general questions conversationally and accurately. If a user uploads a document, you act as an expert data analyst: read the text carefully, ignore unnecessary boilerplate, and format your findings beautifully using Markdown tables and bullet points."
         }
     ]
 
@@ -40,6 +38,25 @@ def extract_text_from_pdf_bytes(pdf_bytes):
     for page in doc:
         text += page.get_text()
     return text
+
+@app.post("/clear")
+def clear_memory():
+    global chat_history
+    print("\n[*] Wiping AI Memory for a new chat session...")
+    
+    # Reset to default system prompt
+    chat_history = [
+        {
+            "role": "system",
+            "content": "You are a helpful, highly intelligent AI assistant. You answer general questions conversationally and accurately. If a user uploads a document, you act as an expert data analyst: read the text carefully, ignore unnecessary boilerplate, and format your findings beautifully using Markdown tables and bullet points."
+        }
+    ]
+    
+    # Delete the persistent file
+    if os.path.exists(HISTORY_FILE):
+        os.remove(HISTORY_FILE)
+        
+    return {"status": "memory_cleared"}
 
 import base64
 

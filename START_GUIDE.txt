@@ -1,0 +1,33 @@
+===========================================================
+HOW TO RUN YOUR LOCAL AI PROJECT (CHEAT SHEET)
+===========================================================
+
+Since you closed your terminal, you need to turn both the "Frontend" (UI) and the "Backend" (Python AI) back on. You need TWO separate terminal windows open.
+
+-----------------------------------------------------------
+STEP 1: Start the Python Backend (The AI Brain)
+-----------------------------------------------------------
+1. Open a new Command Prompt.
+2. Type: e:
+3. Type: cd localai\Local-Ai
+4. Type: uvicorn server:app --reload
+
+* Leave this black terminal window open! It is doing all the AI thinking.
+
+-----------------------------------------------------------
+STEP 2: Start the React Frontend (The UI)
+-----------------------------------------------------------
+1. Open a SECOND new Command Prompt.
+2. Type: e:
+3. Type: cd localai\Local-Ai
+4. Type: npm run dev
+
+* Leave this terminal open too!
+
+-----------------------------------------------------------
+STEP 3: Open the App
+-----------------------------------------------------------
+1. Open Google Chrome.
+2. Go to: http://localhost:5173
+
+Your app is now fully running! You can chat and upload PDFs.

@@ -114,8 +114,8 @@ export default function Composer({
           ) : (
             <button
               type="submit"
-              className={`send-btn ${value.trim() ? "active" : ""}`}
-              disabled={!value.trim()}
+              className={`send-btn ${(value.trim() || attachedFiles.length > 0) ? "active" : ""}`}
+              disabled={!(value.trim() || attachedFiles.length > 0)}
               title="Send"
               aria-label="Send message"
             >

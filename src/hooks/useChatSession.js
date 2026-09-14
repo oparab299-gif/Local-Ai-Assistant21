@@ -64,11 +64,18 @@ export function useChatSession() {
     });
   };
 
-  const startNewChat = () => {
+  const startNewChat = async () => {
     stopGenerating();
     setMessages([]);
     setAttachedFiles([]);
     setActiveChat(null);
+    
+    // Tell the Python backend to wipe the AI's memory file so it forgets old PDFs
+    try {
+      await fetch("http://localhost:8000/clear", { method: "POST" });
+    } catch (e) {
+      console.error("Failed to clear backend memory", e);
+    }
   };
 
   const loadThread = (topic, isRecent = false) => {
@@ -84,9 +91,11 @@ export function useChatSession() {
   };
 
   const sendMessage = async () => {
-    if (!inputValue.trim() || isGenerating) return;
+    // Return if they didn't type anything AND didn't attach any files
+    if ((!inputValue.trim() && attachedFiles.length === 0) || isGenerating) return;
 
-    const userText = inputValue;
+    // If they just attached a file without typing, automatically ask for a summary
+    const userText = inputValue.trim() ? inputValue : "Please summarize the attached document.";
     setInputValue("");
 
     if (messages.length === 0) {
