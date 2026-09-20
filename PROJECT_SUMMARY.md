@@ -25,7 +25,17 @@ We connected your beautiful React UI to the new Python backend.
 To make the project presentation-ready:
 *   **`start_project.bat`**: Created a one-click Windows batch script that automatically opens two command prompts and starts both the React and Python servers.
 *   **`START_GUIDE.txt`**: Created a manual cheat sheet for running the project.
-*   **GitHub Setup**: Pushed the entire full-stack codebase, along with a detailed `README.md`, to your new repository: `https://github.com/oparab299-gif/Local-Ai-Assistant21.git`.
+
+## Phase 5: Enterprise Cybersecurity
+We implemented aggressive Prompt Injection defenses in the AI's core system prompt.
+*   **Jailbreak Defense**: The AI is strictly instructed to politely decline any attempts by the user to override its instructions, ignore previous commands, or reveal its system prompt.
+*   **Anti-Redaction Override**: We successfully bypassed the model's native RLHF safety filters, forcing it to output raw financial data instead of hiding it behind `[redacted]` tags.
+
+## Phase 6: Multi-Modal Vision & Engineering Discoveries
+We upgraded the system to handle both PDFs and Images, leading to a major architectural discovery.
+*   **Smart Routing**: The Python backend dynamically detects file types. PDFs are routed to `qwen2.5:3b` for fast text analysis. Images (`.png`, `.jpg`) are converted to base64 and routed to `llava-phi3` (Vision AI).
+*   **Memory Sanitization**: Built a context manager to aggressively strip old images from the chat history when a new image is uploaded, preventing the Vision AI from getting confused by multiple images.
+*   **The VLM Hallucination Discovery**: During testing, we discovered that small, local Vision Models (VLMs) running on 8GB laptops severely hallucinate mathematical data (OCR) when compressing dense spreadsheets. We concluded that while VLMs are excellent for general image context, **Native PDF Text Extraction** is mandatory for enterprise applications requiring 100% mathematical accuracy.
 
 ## What's Next?
-The Minimum Viable Product (MVP) is 100% complete and fully functional. The final step for enterprise scalability will be integrating ChromaDB into `server.py` to handle large, 100+ page documents.
+The Minimum Viable Product (MVP) is 100% complete, secure, and multi-modal. The final step for enterprise scalability will be integrating ChromaDB into `server.py` to handle large, 100+ page documents.
