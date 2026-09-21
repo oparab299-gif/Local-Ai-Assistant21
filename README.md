@@ -1,56 +1,66 @@
-# Local Enterprise AI Assistant (Expense RAG)
+# Local Enterprise AI Assistant 🚀
 
-This project is a Secure, Local AI-Assisted Expense Management System. It allows users to upload financial documents (PDFs/Receipts) and interact with an AI to summarize, extract, and query expense data. The entire system runs **100% offline** on local hardware using Small Language Models (SLMs).
-
-## Architecture
-
-The system is divided into two main components:
-1. **Frontend (React/Vite)**: A modern, ChatGPT-like web interface for users to upload documents and chat.
-2. **Backend (Python/FastAPI)**: The bridging server that processes PDFs, manages conversation memory, and communicates with the local AI.
+A highly secure, air-gapped, multi-modal AI Assistant designed for Enterprise Data Analysis. It runs **100% offline** on local hardware (optimized for 8GB RAM laptops) and processes PDFs, Images, and text using Local AI models.
 
 ---
 
-## 1. The Backend (Python)
-**File:** `server.py`
+## 🛠️ Installation Guide (For a Fresh PC)
 
-### What it does:
-- Acts as the middleman between the React UI and the local AI (Ollama).
-- Listens on `http://localhost:8000/chat`.
-- **File Uploads**: Uses `PyMuPDF` (`fitz`) to extract text directly from uploaded PDFs in memory.
-- **Persistent Memory**: Saves the conversation history to `backend_memory.json` so the AI retains context even if the server restarts.
-- **AI Integration**: Sends the extracted text and user prompt to `qwen2.5:3b` via Ollama with `temperature: 0.0` to ensure factual, non-hallucinated answers.
+If you want to run this project on a friend's PC, follow these exact steps:
 
-### How to run it:
-1. Open a terminal in the project folder.
-2. Ensure Ollama is running in the background.
-3. Start the FastAPI server:
-   ```bash
-   uvicorn server:app --reload
-   ```
+### Step 1: Install Prerequisites
+Before you begin, ensure the PC has these three programs installed:
+1. **[Git](https://git-scm.com/downloads)** (To download the code)
+2. **[Python 3.10+](https://www.python.org/downloads/)** (For the Backend)
+3. **[Node.js](https://nodejs.org/)** (For the Frontend)
+4. **[Ollama](https://ollama.com/)** (The AI Engine)
+
+### Step 2: Download the Code
+Open a Command Prompt and run:
+```bash
+git clone https://github.com/oparab299-gif/Local-Ai-Assistant21.git
+cd Local-Ai-Assistant21
+```
+
+### Step 3: Install the AI Models
+Open a terminal and download the required AI models via Ollama:
+```bash
+# Download the Text & PDF Engine (Lightning fast, highly capable)
+ollama pull qwen2.5:3b
+
+# Download the Vision Engine (Optimized for OCR and reading receipts)
+ollama pull llava-phi3
+```
+
+### Step 4: Install Backend Dependencies (Python)
+Open a terminal inside the project folder and run:
+```bash
+pip install fastapi uvicorn python-multipart pymupdf ollama
+```
+
+### Step 5: Install Frontend Dependencies (React)
+Open a terminal inside the project folder and run:
+```bash
+npm install
+```
 
 ---
 
-## 2. The Frontend (React)
-**Folder:** `src/`
+## 🚀 How to Run the App
 
-### What it does:
-- Provides a beautiful, dark-mode workspace (`ChatView.jsx`, `Sidebar.jsx`).
-- **File Attachments**: Users can attach documents using the `+` button (`Composer.jsx`).
-- **Persistent Memory**: Uses `localStorage` inside `useChatSession.js` so that if the user refreshes the browser, their chats are not lost.
-- **Full-Stack Connection**: Connects to the backend via a `fetch()` request sending a `FormData` object containing the user's message and the attached PDF binary.
+Once everything is installed, starting the app takes just one click!
 
-### How to run it:
-1. Open a second terminal in the project folder.
-2. Install dependencies (only needed once): `npm install`
-3. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-4. Open the provided `localhost` link in your browser.
+1. Make sure **Ollama** is running in your Windows system tray.
+2. Double-click the **`start_project.bat`** file located in the project folder.
+3. Two terminal windows will automatically open to boot the servers.
+4. Open Google Chrome and go to: `http://localhost:5173`
 
 ---
 
-## Previous Prototype Scripts (Reference)
-Before building the full-stack app, we built prototypes to test the individual pieces:
-- **`read_pdf_ai.py`**: A pure terminal script to test if `PyMuPDF` could extract text from a dummy PDF and pass it to Ollama.
-- **`expense_rag.py`**: A prototype script to test Vector Database chunking using ChromaDB (this logic will be integrated into `server.py` in the next phase).
+## 🏗️ Architecture & Features
+*   **Dual-Pipeline AI:** Automatically routes PDFs to `qwen2.5:3b` for perfect digital text extraction, and images (`.jpg`, `.png`) to `llava-phi3` for Vision OCR.
+*   **Prompt Injection Defense:** Hardcoded security protocols prevent jailbreaking and unauthorized overarching commands.
+*   **RLHF Bypass:** Bypasses standard AI safety filters to ensure financial data is outputted raw and not censored as `[redacted]`.
+*   **Amnesia Prevention:** Maintains conversational memory across turns using a backend JSON state manager.
+
+*For a deep dive into the code and architecture, check out the `docs/` folder!*
